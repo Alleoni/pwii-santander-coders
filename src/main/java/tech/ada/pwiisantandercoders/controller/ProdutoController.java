@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.ada.pwiisantandercoders.model.Produto;
 import tech.ada.pwiisantandercoders.service.ProdutoService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,7 +28,12 @@ public class ProdutoController {
 
     @RequestMapping (value = "/{id}", method = RequestMethod.GET)
     public Optional<Produto> findById(@PathVariable Long id) {
-        return produtoService.buscarPorId(id);
+        return this.produtoService.buscarPorId(id);
+    }
+
+    @RequestMapping(value = "/idAll", method = RequestMethod.GET)
+    public List<Produto> findAll(){
+        return produtoService.todos();
     }
 
     //Listar todos
