@@ -6,7 +6,6 @@ import tech.ada.pwiisantandercoders.model.Produto;
 import tech.ada.pwiisantandercoders.service.ProdutoService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/produto")
@@ -26,15 +25,27 @@ public class ProdutoController {
         return this.produtoService.criar(produto);
     }
 
-    @RequestMapping (value = "/{id}", method = RequestMethod.GET)
-    public Optional<Produto> findById(@PathVariable Long id) {
-        return this.produtoService.buscarPorId(id);
+    @RequestMapping (value = "/{codigoBarra}", method = RequestMethod.GET)
+    public Produto findById(@PathVariable("codigoBarra") String codigoBarra) {
+        return this.produtoService.buscarPorId(codigoBarra)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     @RequestMapping(value = "/idAll", method = RequestMethod.GET)
     public List<Produto> findAll(){
-        return produtoService.todos();
+        return this.produtoService.todos();
     }
+
+    @RequestMapping(value = "/atualizar", method = RequestMethod.PUT)
+    public Produto atualizar(@RequestBody Produto produto){
+       return this.produtoService.atualizar(produto);
+    }
+
+    @RequestMapping(value = "/delete/{sk}", method = RequestMethod.DELETE)
+    public void deleteById(@PathVariable("sk") String sk){
+       this.produtoService.deletar(codigoBarra);
+    }
+
 
     //Listar todos
 

@@ -2,6 +2,7 @@ package tech.ada.pwiisantandercoders.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.ada.pwiisantandercoders.dto.ProdutoDTO;
 import tech.ada.pwiisantandercoders.model.Produto;
 import tech.ada.pwiisantandercoders.repository.ProdutoRepository;
 
@@ -15,26 +16,29 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     //INSERT - CREATE
-    public Produto criar(Produto produto) {
-        return this.produtoRepository.save(produto);
+    public Produto criar(ProdutoDTO produtoDTO) {
+        return this.produtoRepository.save(produtoDTO);
     }
 
     //BUSCAR - READ - TODOS
-    public List<Produto> todos() {
+    public List<ProdutoDTO> todos() {
         return this.produtoRepository.findAll();
     }
 
     //BUSCAR - READ - BUSCAR POR ID
-    public Optional<Produto> buscarPorId(Long id){
+    public Optional<ProdutoDTO> buscarPorId(Long id){
         return this.produtoRepository.findById(id);
     }
 
 
     //ATUALIZAR - UPDATE
-    public Produto atualizar(Produto produto){
-        Optional<Produto> optionalProduto = this.buscarPorId(produto.getId());
+    public Produto atualizar(ProdutoDTO produtoDTO){
+        Optional<Produto> optionalProduto = this.buscarPorId(produtoDTO.getId());
         if(optionalProduto.isPresent()) {
-            return this.produtoRepository.save(optionalProduto.get());
+
+            Produto produtoDB = optionalProduto.get();
+            Produto produtoAtualizado = new ProdutoDTO(produtoDB.getId(), produtoDB.getNome(), produtoDB.getDescricao(), produtoDB.getPreco());
+            return this.produtoRepository.save(produtoAtualizado);
         }
         throw new RuntimeException("Produto inexistente");
     }
