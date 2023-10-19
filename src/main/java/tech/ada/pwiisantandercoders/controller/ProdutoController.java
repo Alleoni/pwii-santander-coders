@@ -2,6 +2,7 @@ package tech.ada.pwiisantandercoders.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tech.ada.pwiisantandercoders.dto.ProdutoDTO;
 import tech.ada.pwiisantandercoders.model.Produto;
 import tech.ada.pwiisantandercoders.service.ProdutoService;
 
@@ -21,24 +22,24 @@ public class ProdutoController {
 
     @RequestMapping(value = "/criar", method = RequestMethod.POST)
     //@PostMapping(value = "/criar")
-    public Produto criar(@RequestBody Produto produto) {
-        return this.produtoService.criar(produto);
+    public Produto criar(@RequestBody ProdutoDTO produtoDTO) {
+        return this.produtoService.criar(produtoDTO);
     }
 
     @RequestMapping (value = "/{codigoBarra}", method = RequestMethod.GET)
-    public Produto findById(@PathVariable("codigoBarra") String codigoBarra) {
+    public ProdutoDTO findById(@PathVariable("codigoBarra") String codigoBarra) {
         return this.produtoService.buscarPorId(codigoBarra)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     @RequestMapping(value = "/idAll", method = RequestMethod.GET)
-    public List<Produto> findAll(){
+    public List<ProdutoDTO> findAll(){
         return this.produtoService.todos();
     }
 
     @RequestMapping(value = "/atualizar", method = RequestMethod.PUT)
-    public Produto atualizar(@RequestBody Produto produto){
-       return this.produtoService.atualizar(produto);
+    public Produto atualizar(@RequestBody ProdutoDTO produtoDTO){
+       return this.produtoService.atualizar(produtoDTO);
     }
 
     @RequestMapping(value = "/delete/{sk}", method = RequestMethod.DELETE)
