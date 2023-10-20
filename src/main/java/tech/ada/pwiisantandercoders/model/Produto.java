@@ -1,10 +1,7 @@
 package tech.ada.pwiisantandercoders.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,6 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Produto {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +21,7 @@ public class Produto {
     private String nome;
 
     @Column(nullable = false, unique = true)
-    private String sk;
+    private String codigoBarra;
 
     @Column(nullable = true)
     private String descricao;
