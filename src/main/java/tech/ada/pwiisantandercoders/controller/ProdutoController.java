@@ -28,7 +28,7 @@ public class ProdutoController {
 
     @RequestMapping (value = "/{codigoBarra}", method = RequestMethod.GET)
     public ProdutoDTO findById(@PathVariable("codigoBarra") String codigoBarra) {
-        return this.produtoService.buscarPorId(codigoBarra)
+        return this.produtoService.buscaPorCodigoBarra(codigoBarra)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
@@ -37,17 +37,15 @@ public class ProdutoController {
         return this.produtoService.todos();
     }
 
-    @RequestMapping(value = "/atualizar", method = RequestMethod.PUT)
+   /* @RequestMapping(value = "/atualizar", method = RequestMethod.PUT)
     public Produto atualizar(@RequestBody ProdutoDTO produtoDTO){
        return this.produtoService.atualizar(produtoDTO);
     }
-
-    @RequestMapping(value = "/delete/{sk}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable("sk") String sk){
+*/
+    @RequestMapping(value = "/delete/{codigoBarra}", method = RequestMethod.DELETE)
+    public void deleteById(@PathVariable("codigoBarra") String codigoBarra){
        this.produtoService.deletar(codigoBarra);
     }
 
-
-    //Listar todos
 
 }

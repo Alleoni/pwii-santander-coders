@@ -21,8 +21,8 @@ public class ProdutoService {
 
     //INSERT - CREATE
     public ProdutoDTO criar(ProdutoDTO produtoDTO) {
-       Produto produto = this.produtoConverter.toProduto(produtoDTO);
-       Produto produtoDB = this.produtoRepository.save(produto);
+        Produto produto = this.produtoConverter.toProduto(produtoDTO);
+        Produto produtoDB = this.produtoRepository.save(produto);
         return this.produtoConverter.toProdutoDTO(produtoDB);
     }
 
@@ -34,12 +34,16 @@ public class ProdutoService {
     }
 
     //BUSCAR - READ - BUSCAR POR ID
-    public Optional<Produto> buscarPorId(Long id){
-        return this.produtoRepository.findById(id);
+    public Optional<ProdutoDTO> buscaPorCodigoBarra(String codigoBarra) {
+        Optional<Produto> optionalProduto = this.produtoRepository.findByCodigoBarra(codigoBarra);
+        if (optionalProduto.isPresent()) {
+           return Optional.of(this.produtoConverter.toProdutoDTO(optionalProduto.get()));
+        } else {
+            return Optional.empty();
+        }
     }
 
-
-    //ATUALIZAR - UPDATE
+    /*ATUALIZAR - UPDATE
     public ProdutoDTO atualizar(ProdutoDTO produtoDTO){
         Optional<ProdutoDTO> optionalProduto = this.buscarPorId(produtoDTO.getId());
         if(optionalProduto.isPresent()) {
@@ -50,10 +54,10 @@ public class ProdutoService {
         }
         throw new RuntimeException("Produto inexistente");
     }
-
+*/
     //DELETE
-    public void deletar(Long id){
-        this.produtoRepository.deleteById(id);
+    public void deletar(String codigoBarra){
+        this.produtoRepository.deleteByCodigoBarra(codigoBarra);
     }
 
 }
