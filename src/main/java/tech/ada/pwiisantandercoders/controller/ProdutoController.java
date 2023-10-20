@@ -22,7 +22,7 @@ public class ProdutoController {
 
     @RequestMapping(value = "/criar", method = RequestMethod.POST)
     //@PostMapping(value = "/criar")
-    public Produto criar(@RequestBody ProdutoDTO produtoDTO) {
+    public ProdutoDTO criar(@RequestBody ProdutoDTO produtoDTO) {
         return this.produtoService.criar(produtoDTO);
     }
 

@@ -20,9 +20,10 @@ public class ProdutoService {
     private ProdutoConverter produtoConverter;
 
     //INSERT - CREATE
-    public Produto criar(ProdutoDTO produtoDTO) {
+    public ProdutoDTO criar(ProdutoDTO produtoDTO) {
        Produto produto = this.produtoConverter.toProduto(produtoDTO);
-        return this.produtoRepository.save(produto);
+       Produto produtoDB = this.produtoRepository.save(produto);
+        return this.produtoConverter.toProdutoDTO(produtoDB);
     }
 
     //BUSCAR - READ - TODOS
@@ -33,7 +34,7 @@ public class ProdutoService {
     }
 
     //BUSCAR - READ - BUSCAR POR ID
-    public Optional<ProdutoDTO> buscarPorId(Long id){
+    public Optional<Produto> buscarPorId(Long id){
         return this.produtoRepository.findById(id);
     }
 
