@@ -37,11 +37,11 @@ public class ProdutoController {
         return this.produtoService.todos();
     }
 
-   /* @RequestMapping(value = "/atualizar", method = RequestMethod.PUT)
-    public Produto atualizar(@RequestBody ProdutoDTO produtoDTO){
+    @RequestMapping(value = "/atualizar", method = RequestMethod.PUT)
+    public ProdutoDTO atualizar(@RequestBody ProdutoDTO produtoDTO){
        return this.produtoService.atualizar(produtoDTO);
     }
-*/
+
     @RequestMapping(value = "/delete/{codigoBarra}", method = RequestMethod.DELETE)
     public void deleteById(@PathVariable("codigoBarra") String codigoBarra){
        this.produtoService.deletar(codigoBarra);
